@@ -67,7 +67,15 @@
     NSNumber *count = d[@"count"];
     NSArray *bookmarks = d[@"bookmarks"];
     self.countButton.title = [NSString stringWithFormat:@"%@", count];
-    self.bookmarks = bookmarks;
+    self.bookmarks = [bookmarks sortedArrayUsingComparator:^NSComparisonResult(NSDictionary *obj1, NSDictionary *obj2) {
+        NSString *c1 = obj1[@"comment"];
+        NSString *c2 = obj2[@"comment"];
+        
+        NSNumber *len1 = @(c1.length == 0);
+        NSNumber *len2 = @(c2.length == 0);
+        
+        return [len1 compare:len2];
+    }];
     [self.tableView reloadData];
 }
 
