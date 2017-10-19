@@ -76,6 +76,11 @@
         
         return [len1 compare:len2];
     }];
+    
+    NSPredicate *p = [NSPredicate predicateWithFormat:@"comment.length > 0"];
+    self.bookmarks = [self.bookmarks filteredArrayUsingPredicate:p];
+    self.countButton.title = [NSString stringWithFormat:@"%@ / %@", @(self.bookmarks.count), count];
+    
     [self.tableView reloadData];
 }
 
